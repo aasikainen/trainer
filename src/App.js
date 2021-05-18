@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-//ag-grid
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import CustomerList from './components/CustomerList';
 import TrainingsList from './components/TrainingList';
-//import AppBar1 from './components/AppBar1';
+import TrainingCalendar from './components/TrainingCalendar';
+import Statistics from './components/Statistics';
+
 //React Router Sidebar
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import SplitPane from 'react-split-pane';
@@ -13,24 +13,27 @@ import SplitPane from 'react-split-pane';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-//import DeleteIcon from '@material-ui/icons/Delete';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import EventRoundedIcon from '@material-ui/icons/EventRounded';
+import EqualizerRoundedIcon from '@material-ui/icons/EqualizerRounded';
 
 //styles
 import './App.css';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
-//Sidebar styles
-const paneStyle = {
-  background: '#3f51b5',
-  width: '2px',
-  cursor: 'col-resize',
-  margin: '0 5px',
-  height: '600px',
-};
-
 function App() {
+
+  //Sidebar styles
+  const paneStyle = {
+    background: '#3f51b5',
+    width: '2px',
+    cursor: 'col-resize',
+    margin: '0 5px',
+    height: '600px',
+  };
+  
   return (
     <div className="App">
       <div>
@@ -45,18 +48,24 @@ function App() {
       <div>
       <Router>
       <SplitPane
-      split="vertical"
-      minSize={100}
-      defaultSize={150}
-      resizerStyle={paneStyle}
+        split="vertical"
+        minSize={100}
+        defaultSize={150}
+        resizerStyle={paneStyle}
       >
-        <menu>
-          <div><Link to="/">Customres</Link></div>
-          <div><Link to="/trainings">Trainings</Link></div> 
+        <div className="menuClass">
+        <menu >
+          <div><Link to="/"><AccountCircleIcon color="primary" /><font class="linkText">Customers</font></Link></div>
+          <div><Link to="/trainings"><DirectionsRunIcon color="primary" /><font class="linkText">Trainings</font></Link></div>
+          <div><Link to="/calendar"><EventRoundedIcon color="primary" /><font class="linkText">Calendar</font></Link></div>  
+          <div><Link to="/statistics"><EqualizerRoundedIcon color="primary" /><font class="linkText">Statistics</font></Link></div> 
         </menu>
+        </div>
         <div>
         <Route exact path="/" component={CustomerList} />
         <Route exact path="/trainings" component={TrainingsList} />
+        <Route exact path="/calendar" component = {TrainingCalendar} />
+        <Route exact path="/statistics" component = {Statistics} />
       </div>
       </SplitPane>
       </Router>
